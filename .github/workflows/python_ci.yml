@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  pre-commit:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +25,42 @@ jobs:
     - name: Run pre-commit hooks
       run: pre-commit run --all-files
 
+  pylint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pre-commit pylint bandit
+
     - name: Run pylint
       run: pylint **/*.py --ignore=env
+
+  bandit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pre-commit pylint bandit
 
     - name: Check for security vulnerabilities with bandit
       run: bandit -r .
