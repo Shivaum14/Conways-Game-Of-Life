@@ -1,4 +1,5 @@
 def main() -> None:
+    """Responsible for creating the main game loop"""
     pass
 
 
