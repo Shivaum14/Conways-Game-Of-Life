@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
-"""This module is responsible for implementing the game loop."""
+"""
+This module contains the main logic for Conway's Game of Life.
+
+The game evolves in steps, where at each step the board state
+changes based on some rules. This module provides functionalities
+to initialize the game board, evolve it through steps, and display it.
+"""
 import random
 from typing import List, Set
 
 import pygame  # type: ignore
 
 from . import settings
-from .models import Position
+from .models import Grid, Position
 from .settings import GRID_HEIGHT, GRID_WIDTH, TILE_SIZE
 
 pygame.init()
@@ -69,35 +75,6 @@ def get_neighbors(position: Position) -> List[Position]:
     return neighbors
 
 
-def draw_grid(positions: Set[Position]) -> None:
-    """Draws a the grid and displays any changes to it."""
-
-    for position in positions:
-        col, row = position.x, position.y
-        top_left = (col * TILE_SIZE, row * TILE_SIZE)
-        pygame.draw.rect(
-            screen,
-            settings.YELLOW,
-            (*top_left, TILE_SIZE, TILE_SIZE),
-        )
-
-    for row in range(GRID_HEIGHT):
-        pygame.draw.line(
-            screen,
-            settings.BLACK,
-            (0, row * TILE_SIZE),
-            (settings.WIDTH, row * TILE_SIZE),
-        )
-
-    for col in range(GRID_WIDTH):
-        pygame.draw.line(
-            screen,
-            settings.BLACK,
-            (col * TILE_SIZE, 0),
-            (col * TILE_SIZE, settings.HEIGHT),
-        )
-
-
 def run() -> None:
     """Responsible for creating the main game loop"""
 
@@ -105,6 +82,7 @@ def run() -> None:
     playing = False
     count = 0
 
+    grid = Grid()
     positions: Set[Position] = set()
     while running:
         # Regulates the speed of the game loop setting a max FPS
@@ -146,7 +124,7 @@ def run() -> None:
                     positions = gen(random.randrange(4, 10) * GRID_WIDTH)
 
         screen.fill(settings.GREY)
-        draw_grid(positions)
+        grid.draw_grid(positions, screen)
         pygame.display.update()
 
     pygame.quit()
