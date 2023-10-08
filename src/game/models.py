@@ -4,7 +4,7 @@ from typing import Any
 
 from pydantic import BaseModel, validator
 
-from src.settings import GRID_HEIGHT, GRID_WIDTH
+from .settings import GRID_HEIGHT, GRID_WIDTH
 
 
 class Position(BaseModel):
