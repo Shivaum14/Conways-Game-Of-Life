@@ -26,6 +26,11 @@ repos:
     hooks:
       - id: mypy
         args: [--strict]
+        name: mypy
+        entry: mypy
+        language: python
+        types: [python]
+        additional_dependencies: [mypy, pydantic]
   - repo: https://github.com/PyCQA/flake8
     rev: 4.0.1
     hooks:

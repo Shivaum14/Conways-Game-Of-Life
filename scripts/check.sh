@@ -14,6 +14,6 @@ flake8 . --max-line-length=120 --exclude=$EXCLUDE_DIR
 
 # Run mypy for type checking
 echo "Running mypy..."
-mypy . --exclude $EXCLUDE_DIR
+mypy . --exclude $EXCLUDE_DIR --config mypy.ini
 
 echo "Done!"
