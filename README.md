@@ -16,5 +16,5 @@ simple implimentation of conway's game of life using pygame.
 ### Controls:
 - ```Space``` - Play/Pause the game
 - ```Right-click``` - Manually add/remove a cell
-- ```c``` - clear all cells
-- ```g``` - randomly generate a lot of new cells
+- ```c``` - Clear all cells
+- ```g``` - Randomly generate a batch of new cells
